@@ -1,6 +1,6 @@
 # Kind Cluster
 
-[![Lint Status](https://github.com/pepodev/terraform-kind-cluster/workflows/Lint/badge.svg)](https://github.com/pepodev/terraform-kind-cluster/actions)
+[![Pre-Commit](https://github.com/PePoDev/terraform-kind-cluster/actions/workflows/pre-commit.yml/badge.svg?branch=main)](https://github.com/PePoDev/terraform-kind-cluster/actions/workflows/pre-commit.yml)
 [![LICENSE](https://img.shields.io/github/license/pepodev/terraform-kind-cluster)](https://github.com/pepodev/terraform-kind-cluster/blob/master/LICENSE)
 
 Terraform module which creates Kubernetes Cluster resources on KIND (Kubernetes in Docker).
