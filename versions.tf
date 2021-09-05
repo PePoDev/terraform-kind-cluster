@@ -12,6 +12,14 @@ terraform {
       source  = "kreuzwerker/docker"
       version = "~> 2.15"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.4"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.1"
+    }
   }
 }
 

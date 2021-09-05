@@ -5,5 +5,5 @@ resource "kubectl_manifest" "kubectl_apply_metrics_server" {
 
 data "kubectl_file_documents" "metrics_server_manifests" {
   count   = var.enable_metrics_server ? 1 : 0
-  content = file("${path.module}/kubernetes/metrics-server.yml")
+  content = file("${path.module}/manifest/metrics-server.yml")
 }

@@ -54,5 +54,5 @@ resource "kubectl_manifest" "kubectl_apply_loadbalancer" {
 
 data "kubectl_file_documents" "loadbalancer_manifests" {
   count   = var.enable_loadbalancer ? 1 : 0
-  content = file("${path.module}/kubernetes/loadbalancer.yml")
+  content = file("${path.module}/manifest/loadbalancer.yml")
 }
