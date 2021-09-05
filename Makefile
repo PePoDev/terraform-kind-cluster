@@ -1,7 +1,17 @@
 .PHONY: changelog release
 
+SEMTAG=tools/semtag
+
+CHANGELOG_FILE=CHANGELOG.md
+TAG_QUERY=v11.0.0..
+
+scope ?= "minor"
+
+changelog-unrelease:
+	git-chglog --no-case -o $(CHANGELOG_FILE) $(TAG_QUERY)
+
 changelog:
-	git-chglog -o CHANGELOG.md --next-tag `semtag final -s minor -o`
+	git-chglog --no-case -o $(CHANGELOG_FILE) --next-tag `$(SEMTAG) final -s $(scope) -o -f` $(TAG_QUERY)
 
 release:
-	semtag final -s minor
+	$(SEMTAG) final -s $(scope)
