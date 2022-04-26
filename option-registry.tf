@@ -22,3 +22,14 @@ resource "docker_image" "registry" {
 
   name = "registry:2"
 }
+
+resource "kubernetes_config_map" "local_registry_hosting" {
+  metadata {
+    name      = "local-registry-hosting"
+    namespace = "kube-public"
+  }
+
+  data = {
+    "localRegistryHosting.v1" = "host: \"localhost:${var.registry_port}\"\nhelp: \"https://kind.sigs.k8s.io/docs/user/local-registry/\"\n"
+  }
+}
