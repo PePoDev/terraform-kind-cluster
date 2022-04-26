@@ -6,6 +6,10 @@ resource "kubernetes_namespace" "loadbalancer_namespace" {
       "app" = "metallb"
     }
   }
+
+  depends_on = [
+    kind_cluster.this
+  ]
 }
 
 resource "random_id" "loadbalancer_secret_random" {
