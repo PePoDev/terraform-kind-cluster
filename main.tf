@@ -43,13 +43,11 @@ resource "kind_cluster" "this" {
     #   kube_proxy_mode     = null
     # }
 
-    containerd_config_patches = var.containerd_config_patches
-    # TODO: Example patch
-    # containerd_config_patches = [
-    #         <<-TOML
-    #         [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:5000"]
-    #             endpoint = ["http://kind-registry:5000"]
-    #         TOML
-    #     ]
+    containerd_config_patches = concat(var.containerd_config_patches, var.enable_registry == false ? [] : [
+      <<-TOML
+      [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${var.registry_port}"]
+          endpoint = ["http://${var.cluster_name}-registry:5000"]
+      TOML
+    ])
   }
 }

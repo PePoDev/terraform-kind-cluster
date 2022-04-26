@@ -46,6 +46,18 @@ variable "enable_metrics_server" {
   default     = false
 }
 
+variable "enable_registry" {
+  description = "Set to true to install image registry as docker container."
+  type        = bool
+  default     = false
+}
+
+variable "registry_port" {
+  description = "Port of registry container."
+  type        = number
+  default     = 5000
+}
+
 variable "containerd_config_patches" {
   description = "Path config to existing default for containerd."
   type        = list(string)
