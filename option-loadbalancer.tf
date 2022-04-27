@@ -6,10 +6,6 @@ resource "kubernetes_namespace" "loadbalancer_namespace" {
       "app" = "metallb"
     }
   }
-
-  depends_on = [
-    kind_cluster.this
-  ]
 }
 
 resource "random_id" "loadbalancer_secret_random" {
@@ -59,8 +55,4 @@ data "kubectl_file_documents" "loadbalancer_manifests" {
 resource "kubectl_manifest" "kubectl_apply_loadbalancer" {
   count     = var.enable_loadbalancer ? length(data.kubectl_file_documents.loadbalancer_manifests[0].documents) : 0
   yaml_body = element(data.kubectl_file_documents.loadbalancer_manifests[0].documents, count.index)
-
-  depends_on = [
-    kind_cluster.this
-  ]
 }

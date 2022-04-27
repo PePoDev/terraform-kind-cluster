@@ -23,17 +23,25 @@ terraform {
   }
 }
 
+data "local_file" "kube_config" {
+  filename = "${var.cluster_name}-config"
+
+  depends_on = [
+    kind_cluster.this
+  ]
+}
+
 provider "kubectl" {
-  config_path = "${var.cluster_name}-config"
+  config_path = data.local_file.kube_config.filename
 }
 
 provider "kubernetes" {
-  config_path = "${var.cluster_name}-config"
+  config_path = data.local_file.kube_config.filename
 }
 
 provider "helm" {
   kubernetes {
-    config_path = "${var.cluster_name}-config"
+    config_path = data.local_file.kube_config.filename
   }
 }
 
