@@ -51,12 +51,16 @@ resource "kubernetes_config_map" "loadbalancer_config" {
   }
 }
 
-resource "kubectl_manifest" "kubectl_apply_loadbalancer" {
-  count     = var.enable_loadbalancer ? length(data.kubectl_file_documents.loadbalancer_manifests[0].documents) : 0
-  yaml_body = element(data.kubectl_file_documents.loadbalancer_manifests[0].documents, count.index)
-}
-
 data "kubectl_file_documents" "loadbalancer_manifests" {
   count   = var.enable_loadbalancer ? 1 : 0
   content = file("${path.module}/manifest/loadbalancer.yml")
+}
+
+resource "kubectl_manifest" "kubectl_apply_loadbalancer" {
+  count     = var.enable_loadbalancer ? length(data.kubectl_file_documents.loadbalancer_manifests[0].documents) : 0
+  yaml_body = element(data.kubectl_file_documents.loadbalancer_manifests[0].documents, count.index)
+
+  depends_on = [
+    kind_cluster.this
+  ]
 }
