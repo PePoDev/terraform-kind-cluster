@@ -23,12 +23,14 @@ terraform {
   }
 }
 
-data "local_file" "kube_config" {
-  filename = "${var.cluster_name}-config"
+resource "time_sleep" "wait_cluster" {
+  create_duration = "10s"
+  depends_on      = [kind_cluster.this]
+}
 
-  depends_on = [
-    kind_cluster.this
-  ]
+data "local_file" "kube_config" {
+  filename   = "${var.cluster_name}-config"
+  depends_on = [time_sleep.wait_cluster]
 }
 
 provider "kubectl" {
