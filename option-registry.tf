@@ -32,4 +32,8 @@ resource "kubernetes_config_map" "local_registry_hosting" {
   data = {
     "localRegistryHosting.v1" = "host: \"localhost:${var.registry_port}\"\nhelp: \"https://kind.sigs.k8s.io/docs/user/local-registry/\"\n"
   }
+
+  depends_on = [
+    kind_cluster.this
+  ]
 }
