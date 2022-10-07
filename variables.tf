@@ -12,10 +12,10 @@ variable "node_image" {
 variable "kubernetes_version" {
   description = "Specific kubernetes version to create cluster, Must specific in SemVer version. (Check all supported version -> https://hub.docker.com/r/kindest/node/tags)"
   type        = string
-  default     = "1.21.1"
+  default     = "latest"
   validation {
-    condition     = can(regex("^((([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?)(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?)$", var.kubernetes_version))
-    error_message = "Use SemVer to specific kubernetes version (Check all supported version -> https://hub.docker.com/r/kindest/node/tags)?"
+    condition     = try(regex("^((([0-9]+)\\.([0-9]+)\\.([0-9]+)(?:-([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?)(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?)$", var.kubernetes_version), var.kubernetes_version == "latest")
+    error_message = "Use SemVer to specific kubernetes version (Check all supported version -> https://hub.docker.com/r/kindest/node/tags)"
   }
 }
 
