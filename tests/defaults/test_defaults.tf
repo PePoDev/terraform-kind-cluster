@@ -9,8 +9,7 @@ terraform {
 module "kind" {
   source = "../.."
 
-  cluster_name       = "kind-cluster"
-  kubernetes_version = "latest"
+  cluster_name = "kind-cluster"
 }
 
 resource "test_assertions" "tests" {
@@ -26,4 +25,6 @@ resource "test_assertions" "tests" {
     description = "Can retrieve kubeconfig file"
     condition   = can(yamldecode(file(module.kind.kubeconfig_path)))
   }
+
+  depends_on = [module.kind]
 }
