@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     kind = {
-      source  = "kyma-incubator/kind"
-      version = "~> 0.0.9"
+      source  = "tehcyx/kind"
+      version = "~> 0.0.14"
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
@@ -10,15 +10,15 @@ terraform {
     }
     docker = {
       source  = "kreuzwerker/docker"
-      version = "~> 2.16"
+      version = "~> 2.22"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.10"
+      version = "~> 2.14"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "2.5.1"
+      version = "~> 2.7"
     }
   }
 }
