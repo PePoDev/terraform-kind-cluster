@@ -2,7 +2,7 @@ resource "docker_container" "registry" {
   count = var.enable_registry ? 1 : 0
 
   name    = "${var.cluster_name}-registry"
-  image   = docker_image.registry[0].latest
+  image   = docker_image.registry[0].image_id
   restart = "always"
 
   ports {
